@@ -24,7 +24,7 @@ function login(req, res, next){
   if(!req.body.password){
     return next({ status: 400, message: 'Bad request'})
   }
-
+  console.log(req.body.username, req.body.password)
   // 2. Attempt Login
   authModel.login(req.body.username, req.body.password)
   .then(function(user){

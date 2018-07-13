@@ -109,11 +109,26 @@ function getAllFavs(userId){
     .where({userId})
   )
 }
-function deleteFav(favId){
+function deleteFav(parkId){
   return (
     db('favs')
-    .where({id: favId})
+    .where({parkId})
     .del()
+    .returning('*')
+  )
+}
+function getAcsForFav(userId, parkId){
+  return (
+    db('us_fa_ac')
+    .innerJoin('activs', 'us_fa_ac.activId', 'activs.id')
+    .where({userId, parkId})
+    .returning('*')
+  )
+}
+function postAcForFav(userId, parkId, activId){
+  return (
+    db('us_fa_ac')
+    .insert({userId, parkId, activId})
     .returning('*')
   )
 }
@@ -127,5 +142,7 @@ module.exports = {
   getAllActivities,
   createFav,
   getAllFavs,
-  deleteFav
+  deleteFav,
+  getAcsForFav,
+  postAcForFav
 }

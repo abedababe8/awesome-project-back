@@ -23,7 +23,7 @@ function getAllFavs(req, res, next){
 }
 
 function deleteFav(req, res, next){
-  userModel.deleteFav(req.params.favId)
+  userModel.deleteFav(req.params.parkId)
   .then(function(deletedFav){
     res.status(200).send({deletedFav})
   })
@@ -80,6 +80,20 @@ function getAllActivities(req, res, next){
     return res.status(200).send(activs)
   })
 }
+
+function getAcsForFav(req, res, next){
+  userModel.getAcsForFav(req.params.userId, req.params.parkId)
+  .then(function(data){
+    return res.status(200).send(data)
+  })
+}
+
+function postAcForFav(req, res, next){
+  userModel.postAcForFav(req.params.userId, req.params.parkId, req.params.activId)
+  .then(function(data){
+    return res.status(200).send(data)
+  })
+}
 //////////////////////////////////////////////////////////////////////////////
 // Quality of Life functions
 //////////////////////////////////////////////////////////////////////////////
@@ -92,5 +106,7 @@ module.exports = {
   create,
   getAllAccounts,
   createActiv,
-  getAllActivities
+  getAllActivities,
+  getAcsForFav,
+  postAcForFav
 }

@@ -1,4 +1,4 @@
-const TABLE_NAME = 'users_activs'
+const TABLE_NAME = 'us_fa_ac'
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
@@ -6,9 +6,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex(TABLE_NAME).insert([
-        {id: 1, activId: 1, userId: 1},
-        {id: 2, activId: 2, userId: 2},
-        {id: 3, activId: 3, userId: 1}
+        {id: 1, activId: 1, userId: 1, parkId: 'ChIJPUN72LpqkFQRCP8C8t0okEw'},
+        {id: 2, activId: 2, userId: 2, parkId: 'ChIJSx5JLLRqkFQRwnvCxhDzA3o'},
+        {id: 3, activId: 3, userId: 1, parkId: 'ChIJPUN72LpqkFQRCP8C8t0okEw'}
       ]);
     })
     .then(() => {

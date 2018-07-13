@@ -26,7 +26,7 @@
     "chai": "^4.1.2",
     "dotenv": "^6.0.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.18.1"
   },
   "dependencies": {
     "bcrypt-as-promised": "^1.1.0",
