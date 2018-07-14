@@ -58,15 +58,6 @@ function create(req, res, next){
 }
 
 
-
-function getAllAccounts(req, res, next){
-
-   userModel.getAllAccounts(req.params.userId)
-  .then(function(data){
-    // console.log('hey!', data);
-    return res.status(200).send(data)
-  })
-}
 function createActiv(req, res, next){
   userModel.createActiv(req.body.name, req.body.pts)
     .then(function(data){
@@ -94,6 +85,38 @@ function postAcForFav(req, res, next){
     return res.status(200).send(data)
   })
 }
+
+function updatePtsForAc(req, res, next){
+  userModel.updatePtsForAc(req.params.userId, req.params.parkId, req.params.activId, req.body.pts)
+  .then(function(data){
+    return res.status(200).send(data)
+  })
+  .catch(error => {
+    console.log(error)
+    next()
+  })
+}
+
+function postPhoto(req, res, next){
+  userModel.postPhoto(req.params.userId, req.params.parkId, req.body.uri)
+  .then(function(data){
+    return res.status(200).send(data)
+  })
+  .catch(error => {
+    console.log(error)
+    next()
+  })
+}
+function getPhotos(req, res, next){
+  userModel.getPhotos(req.params.userId, req.params.parkId)
+  .then(function(data){
+    return res.status(200).send(data)
+  })
+  .catch(error => {
+    console.log(error)
+    next()
+  })
+}
 //////////////////////////////////////////////////////////////////////////////
 // Quality of Life functions
 //////////////////////////////////////////////////////////////////////////////
@@ -101,12 +124,13 @@ function postAcForFav(req, res, next){
 module.exports = {
   createFav,
   getAllFavs,
-  // createUser_Acc,
   deleteFav,
   create,
-  getAllAccounts,
   createActiv,
   getAllActivities,
   getAcsForFav,
-  postAcForFav
+  postAcForFav,
+  updatePtsForAc,
+  postPhoto,
+  getPhotos
 }

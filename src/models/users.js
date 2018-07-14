@@ -53,39 +53,11 @@ function create(username, password, name){
   })
 }
 
-
-function getAllAccounts(user_id){
-  return (
-    db('users_accounts')
-    .where({user_id})
-    .then(function(accounts){
-      console.log(accounts);
-      return Promise.all(
-        accounts.map(ele => accountModel.getOne(ele.account_id))
-      )
-    })
-  )
-}
 function createActiv(name, pts){
   return (
     db('activs')
     .insert({name, pts})
     .returning('*')
-  )
-}
-function createUser_Acc(user_id, newAccId){
-  console.log(user_id, newAccId);
-  return (
-    db('users_accounts')
-    .insert({user_id, account_id: newAccId})
-    .returning('*')
-  )
-}
-function getUser_Acc(user_id, account_id){
-  return (
-    db('users_accounts')
-    .where({ user_id, account_id })
-    .first()
   )
 }
 function getAllActivities(){
@@ -132,17 +104,41 @@ function postAcForFav(userId, parkId, activId){
     .returning('*')
   )
 }
+function updatePtsForAc(userId, parkId, activId, morePts){
+  return (
+    db('us_fa_ac')
+    .where({userId, parkId, activId})
+    .update({pts: pts + morePts})
+    .returning('*')
+  )
+}
+
+function postPhoto(userId, parkId, uri){
+  return(
+    db('us_fa_pho')
+    .insert({userId, parkId, uri})
+    .returning('*')
+  )
+}
+function getPhotos(userId, parkId){
+  return(
+    db('us_fa_pho')
+    .where({userId, parkId})
+    .returning('*')
+  )
+}
+
 module.exports = {
   getOneByUserName,
   create,
-  getAllAccounts,
   createActiv,
-  createUser_Acc,
-  getUser_Acc,
   getAllActivities,
   createFav,
   getAllFavs,
   deleteFav,
   getAcsForFav,
-  postAcForFav
+  postAcForFav,
+  updatePtsForAc,
+  postPhoto,
+  getPhotos
 }
