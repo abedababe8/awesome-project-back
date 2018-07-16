@@ -25,9 +25,27 @@ function getAllFavs(req, res, next){
 function deleteFav(req, res, next){
   userModel.deleteFav(req.params.parkId)
   .then(function(deletedFav){
-    res.status(200).send({deletedFav})
+    // res.status(200).send({deletedFav})
+    next()
   })
 }
+
+function deleteAcForFav(req, res, next){
+  userModel.deleteAcForFav(req.params.parkId, req.params.userId)
+  .then(function(data){
+    // res.status(200).send({data})
+    next()
+  })
+}
+
+function deletePhotosForFav(req, res, next){
+  userModel.deletePhotosForFav(req.params.parkId, req.params.userId)
+  .then(function(data){
+    res.status(200).send({data})
+    // next()
+  })
+}
+
 // function createUser_Acc(req, res, next){
 //   userModel.getOneByUserName(req.body.findUser)
 //   .then(function(foundUser){
@@ -125,6 +143,8 @@ module.exports = {
   createFav,
   getAllFavs,
   deleteFav,
+  deleteAcForFav,
+  deletePhotosForFav,
   create,
   createActiv,
   getAllActivities,

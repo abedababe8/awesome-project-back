@@ -89,6 +89,22 @@ function deleteFav(parkId){
     .returning('*')
   )
 }
+function deleteAcForFav(parkId, userId){
+  return (
+    db('us_fa_ac')
+    .where({parkId, userId})
+    .del()
+    .returning('*')
+  )
+}
+function deletePhotosForFav(parkId, userId){
+  return (
+    db('us_fa_pho')
+    .where({parkId, userId})
+    .del()
+    .returning('*')
+  )
+}
 function getAcsForFav(userId, parkId){
   return (
     db('us_fa_ac')
@@ -136,6 +152,8 @@ module.exports = {
   createFav,
   getAllFavs,
   deleteFav,
+  deleteAcForFav,
+  deletePhotosForFav,
   getAcsForFav,
   postAcForFav,
   updatePtsForAc,
